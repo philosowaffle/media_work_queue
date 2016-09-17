@@ -1,1 +1,6 @@
 enum==0.4.6
+pushbullet.py==0.10.0
+python-magic==0.4.12
+requests==2.11.1
+six==1.10.0
+websocket-client==0.37.0
