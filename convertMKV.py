@@ -4,6 +4,7 @@ import subprocess
 import logging
 
 import media_work_queue_enums as enums
+import config_helper as config
 
 ##############################
 # Logging
@@ -20,29 +21,30 @@ VideoType = enums.VideoType
 ##############################
 # Constants
 ##############################
-handbrake_exe_path = 'C:\Program Files (x86)\Handbrake\HandbrakeCLI'
+handbrake_exe_path = config.ConfigSectionMap("HANDBRAKE")['exepath']
 
 
 ##############################
 # Commands
 ##############################
-handbrake_command = '\"{}\" -i \"{}\" -o \"{}\" --preset=\"High Profile\"' # if you remove any variables, make sure to update convert_handbrake method
+preset = config.ConfigSectionMap("HANDBRAKE")['preset']
+handbrake_command = '\"{}\" -i \"{}\" -o \"{}\" --preset=\"{}\"' # if you remove any variables, make sure to update convert_handbrake method
 
 
 ##############################
 # Paths
 ##############################
-MOVIE_DIR = 'E:\Movies\\'
-TV_DIR = 'E:\TV Shows\\'
-WORKOUT_DIR = 'E:\Workout\\'
-ANIME_DIR = 'E:\Anime Movies\\'
-ANIMETV_DIR = 'E:\Anime TV Shows\\'
+MOVIE_DIR = '{}\\'.format(config.ConfigSectionMap("MEDIA_OUTPUT_PATHS")['moviedir'])
+TV_DIR = '{}\\'.format(config.ConfigSectionMap("MEDIA_OUTPUT_PATHS")['tvdir'])
+WORKOUT_DIR = '{}\\'.format(config.ConfigSectionMap("MEDIA_OUTPUT_PATHS")['workoutdir'])
+ANIME_DIR = '{}\\'.format(config.ConfigSectionMap("MEDIA_OUTPUT_PATHS")['animedir'])
+ANIMETV_DIR = '{}\\'.format(config.ConfigSectionMap("MEDIA_OUTPUT_PATHS")['animetvdir'])
 
 
 ##############################
 # Keywords
 ##############################
-FEATURETTE_KEYWORD = 'Featurette' # handles if you have the optional Featurette folder included in movie directories
+FEATURETTE_KEYWORD = config.ConfigSectionMap("STRING_MATCH")['featurettefoldername'] # handles if you have the optional Featurette folder included in movie directories
 
 
 ##############################
@@ -60,7 +62,7 @@ def convert_handbrake(input_path, output_path):
 	output_path = os.path.splitext(output_path)[0]
 	output_path = output_path + '.m4v'
 	logger.info("Converting: " + input_path)
-	subprocess.call(handbrake_command.format(handbrake_exe_path, input_path, output_path))
+	subprocess.call(handbrake_command.format(handbrake_exe_path, input_path, output_path, preset))
 	logger.info("Conversion Complete!")
 	logger.info("=============================================================")
 
