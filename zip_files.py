@@ -5,6 +5,7 @@ import shutil
 import logging
 
 import media_work_queue_enums as enums
+import config_helper as config
 
 
 ##############################
@@ -22,8 +23,8 @@ VideoType = enums.VideoType
 ##############################
 # Constants
 ##############################
-archive_password = 'password'
-zip_exe_path = 'C:\\Program Files\\7-Zip\\7z'
+archive_password = config.ConfigSectionMap("7ZIP")['archivepassword']
+zip_exe_path = config.ConfigSectionMap("7ZIP")['exepath']
 
 
 ##############################

@@ -5,6 +5,7 @@ import shutil
 import logging
 
 import media_work_queue_enums as enums
+import config_helper as config
 import convertMKV
 import zip_files
 
@@ -15,10 +16,10 @@ logger = logging.getLogger('media_work_queue')
 logger.setLevel(logging.DEBUG)
 
 # Formatter
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s:%(message)s')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s: %(message)s')
 
 # File Handler
-file_handler = logging.FileHandler('media_work_queue_logs.log')
+file_handler = logging.FileHandler(config.ConfigSectionMap("LOGGER")['logfile'])
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 

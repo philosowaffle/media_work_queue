@@ -46,16 +46,20 @@ Movie 2
 
 ## Customize
 
+### config.indi
+* **LogFile** - Customize the name of the log file
+* **Handbrake ExePath** - Set the path to your Handbrake.exe
+* **Handbrake Preset** - Change the Handbrake Preset Profile used
+* **7zip ExePath** - Set the path to your 7zip.exe
+* **7zip ArchivePassword** - Set password to encrypt/decrypt 7zip files
+* **Media Output Paths** - Set the output paths to your different media libraries
+* **FeatturetteFolderName** - If you name your Featurette folder something else set it here
+
 ### media_work_queue.py
 * **Logging** - You can customize the logging level and handlers in the `Logging` section.
 
 ### convertMKV.py
-* **Featurette** - If you name your Featurette folder something else, you can set that property under the `Keywords` section.
-* **Output Directory** - When converting, to modify the output location change the properties under the `Paths` section. When you convert a movie or tv show it is expected that you are converting from location A (the path you pass in) to location B (hardcoded property).  If you would like to change this behaviour then you will need to modify `convertMKV.py`.
-* **Handbrake Path** - Set the path to your Handbrake.exe under the `Constants` section.
-*  **Preset Profiles** - By default the Handbrake profile is set to 'High Profile', you cna modify this in the `Commands` section.
+* **Output Directory** - When you convert a movie or tv show it is expected that you are converting from location A (the path you pass in) to location B (hardcoded property).  If you would like to change this behaviour then you will need to modify `convertMKV.py`.
 
 ### zip_files.py
-* **7z Path** - Set the path to your 7zip.exe under the `Constants` section.
-* **7z Password** - If you use a password to encrypt/decrypt your archives then you can set the password in the `Constants` section.
 * **Commands** - The individual commands that are used can be modified in the `Commands` section.  For instance, if you do not use a password to encrypt/decrypt archive files then you could remove the `-p{}` flag from the `zip_command` and `unzip_command`.  Note, you would also need to modify where these commands are used in their respective methods and remove the password parameter from being passed in the string.format().
