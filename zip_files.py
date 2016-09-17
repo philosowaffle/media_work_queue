@@ -10,7 +10,7 @@ import todo_enums as enums
 ##############################
 # Logging
 ##############################
-logger = logging.getLogger('todo_script.zip_files')
+logger = logging.getLogger('media_work_queue.zip_files')
 
 
 ##############################
