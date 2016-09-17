@@ -26,7 +26,7 @@ handbrake_exe_path = 'C:\Program Files (x86)\Handbrake\HandbrakeCLI'
 ##############################
 # Commands
 ##############################
-handbrake_command = '\"{}\" -i \"{}\" -o \"{}\" --preset=High Profile' # if you remove any variables, make sure to update convert_handbrake method
+handbrake_command = '\"{}\" -i \"{}\" -o \"{}\" --preset=\"High Profile\"' # if you remove any variables, make sure to update convert_handbrake method
 
 
 ##############################
