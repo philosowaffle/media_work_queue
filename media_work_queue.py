@@ -39,6 +39,7 @@ logger.addHandler(console_handler)
 ##############################
 message_title = config.ConfigSectionMap("PUSHBULLET")['defaultmessagetitle']
 api_key = config.ConfigSectionMap("PUSHBULLET")['apikey']
+push_bullet = None
 if config.ConfigSectionMap("PUSHBULLET")['enabled'] == 'true':
 	push_bullet = Pushbullet(api_key)
 
@@ -57,6 +58,10 @@ TV = VideoType.tv
 MOVIE = VideoType.movie
 
 failures = ''
+
+def add_failure(message):
+	global failures
+	failures = '{} \n - {}'.format(failures, message)
 
 def convert_and_zip(type, name, path):
 	try:
@@ -85,7 +90,7 @@ def convert(type, name, path):
 		convertMKV.convert(type, path)
 		logger.info('Finished: {}'.format(description))
 	except Exception as e:
-		failures = failures + '\n' + description
+		add_failure(description)
 		logger.error('Failed to {}. Failed with Error: {}'.format(description, e))
 
 def zip(name, path):
@@ -95,7 +100,7 @@ def zip(name, path):
 		zip_files.zip(path)
 		logger.info('Finished: {}'.format(description))
 	except Exception as e:
-		failures = failures + '\n' + description
+		add_failure(description)
 		logger.error('Failed to {}. Failed with Error: {}'.format(description, e))
 
 def unzip(name, path):
@@ -105,7 +110,7 @@ def unzip(name, path):
 		zip_files.unzip(path)
 		logger.info('Finished: {}'.format(description))
 	except Exception as e:
-		failures = failures + '\n' + description
+		add_failure(description)
 		logger.error('Failed to {}. Failed with Error: {}'.format(description, e))
 
 def unzip_rar(type, name, path):
@@ -115,7 +120,7 @@ def unzip_rar(type, name, path):
 		zip_files.unzip_rar(type, path)
 		logger.info('Finished: {}'.format(description))
 	except Exception as e:
-		failures = failures + '\n' + description
+		add_failure(description)
 		logger.error('Failed to {}. Failed with Error: {}'.format(description, e))
 
 def push_note(title, body):
@@ -158,4 +163,4 @@ if failures == '':
 	logger.info("Queue completed successfully.")
 else:
 	push_note(message_title, "Queue completed with errors.")
-	logger.info("Queue completed with errors: {}".format(failures))
+	logger.info("Queue completed with errors. The following jobs did not complete successfully: {}".format(failures))
