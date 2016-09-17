@@ -3,7 +3,7 @@ import os
 import subprocess
 import logging
 
-import todo_enums as enums
+import media_work_queue_enums as enums
 
 ##############################
 # Logging
