@@ -5,6 +5,7 @@ let's you build a queue of tasks to perform various operations
 1. You will build your work queue as a series of commands in `media_work_queue.py`.
 2. There are various helper methods defined in the `Helpers` section for common scenarios.
 3. Script out your work queue in the `Start Here` section.  There is already an example queue scripted there which you can use as a guide but should delete when you make your own queue.
+4. By default (if enabled) the script will send a Pushbullet notification upon queue completion however you can add or remove as many Pushbullet notifications as you like by simply using the `push_bullet` helper method wherever you would like a notification sent.
 4. Save the file and exit.
 5. From the command line `python media_work_queue.py`
 6. Your queue should now run to completetion.  INFO level messages will appear in the command prompt and DEBUG level info is available in the log file.  At the end of a run the script will log out any jobs that failed.
@@ -54,6 +55,7 @@ Movie 2
 * **7zip ArchivePassword** - Set password to encrypt/decrypt 7zip files
 * **Media Output Paths** - Set the output paths to your different media libraries
 * **FeatturetteFolderName** - If you name your Featurette folder something else set it here
+* **Pushbullet Notifications** - You can enable or disable (true/false) Pushbullet notifications here as well as set your ApiKey.
 
 ### media_work_queue.py
 * **Logging** - You can customize the logging level and handlers in the `Logging` section.

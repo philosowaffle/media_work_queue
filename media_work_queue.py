@@ -4,6 +4,8 @@ import subprocess
 import shutil
 import logging
 
+from pushbullet import Pushbullet
+
 import media_work_queue_enums as enums
 import config_helper as config
 import convertMKV
@@ -30,6 +32,15 @@ console_handler.setFormatter(formatter)
 
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
+
+
+##############################
+# Pushbullet
+##############################
+message_title = config.ConfigSectionMap("PUSHBULLET")['defaultmessagetitle']
+api_key = config.ConfigSectionMap("PUSHBULLET")['apikey']
+if config.ConfigSectionMap("PUSHBULLET")['enabled'] == 'true':
+	push_bullet = Pushbullet(api_key)
 
 
 ##############################
@@ -107,9 +118,15 @@ def unzip_rar(type, name, path):
 		failures = failures + '\n' + description
 		logger.error('Failed to {}. Failed with Error: {}'.format(description, e))
 
+def push_note(title, body):
+	if push_bullet is not None:
+		push_bullet.push_note(title, body)
+
 ##############################
 # Start Here
 ##############################
+
+push_note(message_title, "Starting Queue")
 
 convert_and_zip(MOVIE, 'The Jungle Book', 'G:\Media\Movies\The Jungle Book')
 convert_and_zip(MOVIE, 'The Legend of Tarzan', 'G:\Media\Movies\The Legend of Tarzan')
@@ -137,6 +154,8 @@ rar_unzip(TV, name, path)
 # Log Failures
 ##############################
 if failures == '':
+	push_note(message_title, "Queue completed successfully!")
 	logger.info("Queue completed successfully.")
 else:
+	push_note(message_title, "Queue completed with errors.")
 	logger.info("Queue completed with errors: {}".format(failures))
