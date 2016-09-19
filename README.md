@@ -47,7 +47,7 @@ Movie 2
 
 ## Customize
 
-### config.indi
+### config.ini
 * **LogFile** - Customize the name of the log file
 * **Handbrake ExePath** - Set the path to your Handbrake.exe
 * **Handbrake Preset** - Change the Handbrake Preset Profile used
